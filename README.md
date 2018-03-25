@@ -112,6 +112,7 @@ OK (200)
 I'm still working in it, for now is not working the possibility 
 to swap from Celsius to Fahrenheit, any help is well received.
 
-I'll upload an arduino sketch for set up your ESP8266 and get it working with this plugin.
+Here you can download an Arduino scketch for ESP8266 to get working your own Thermostat system
+https://github.com/SaMuELToLoKo/ESP8266-homebridge-advanced-thermostat.git
 
 Thanks and hope this help someone to implement a cool Thermostat at home.
