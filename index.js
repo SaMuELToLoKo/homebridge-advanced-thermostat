@@ -53,21 +53,17 @@ function Thermostat(log, config) {
 Thermostat.prototype = {
 
 	cToF: function(value) {
-    return Number((9 * value / 5 + 32).toFixed(0));
-  },
-  fToC: function(value) {
-    return Number((5 * (value - 32) / 9).toFixed(2));
-  },
+        	return Number((9 * value / 5 + 32).toFixed(0));
+        },
+        fToC: function(value) {
+        	return Number((5 * (value - 32) / 9).toFixed(2));
+        },
 
 	identify: function(callback) {
 		this.log('Identify requested!');
 		return callback(); // succes
 	},
-
-	if (this.TemperatureDisplayUnits == dispFahrenheit) {
-		this.maxTemp = cToF(this.maxTemp);
-		this.minTemp = cToF(this.minTemp);
-	},
+	
 
 	httpRequest: function(url, body, method, username, password, sendimmediately, callback) {
 		return request({
@@ -189,7 +185,7 @@ Thermostat.prototype = {
 					this.log('response succes');
 					return callback(null);
 				} else {
-					this.log('Error setting Target State: %s' err);
+					this.log('Error setting Target State: %s', err);
 					return callback("Error setting mode: " + err);
 				}
 			}).bind(this));
