@@ -1,6 +1,6 @@
 // Plujin Thermostate for HomeKit - Homebridge
 // Author Samuel Boix Torner
-// Version 1.0.0.a
+// Version 1.0.1.a
 //
 // This plujin allow to our Homebridge to manage a Thermostate instance in our own application.
 //Variables to get the code easier
@@ -23,28 +23,28 @@ function Thermostat(log, config) {
 	//Generic Config.
 	this.log 							= log;
 	this.log(this.name, this.apiAdress);
-	this.apiAdress 				= config["apiAdress"];
-	this.name 						= config["name"]						||				"Thermostat";
-	this.manufacturer			= config["manufacturer"]		||				"User-Thermostat";
-	this.model						=	config["model"]						||				"Homebridge-Thermostat";
-	this.serial_number		=	config["serial_number"]		||				"XXX.XXX.XXX.XXX";
+	this.apiAdress 							= config["apiAdress"];
+	this.name 							= config["name"]					||	"Thermostat";
+	this.manufacturer						= config["manufacturer"]				||	"User-Thermostat";
+	this.model							= config["model"]					||	"Homebridge-Thermostat";
+	this.serial_number						= config["serial_number"]				||	"XXX.XXX.XXX.XXX";
 	//Specific config.
-	this.CurrentHeatingCoolingState 		= Characteristic.CurrentHeatingCoolingState.OFF;
-	this.TargetHeatingCoolingState 			= Characteristic.TargetHeatingCoolingState.OFF;
-	this.CurrentTemperature 						= 20;
-	this.TargetTemperature 							= 20;
-	this.CurrentRelativeHumidity				= 20;
-	//this.TargetRelativeHumidity 				=	20;  //This function is unavaliable for now.
-	this.CoolingThresholdTemperature 		= 25;
-	this.HeatingThresholdTemperature		= 20;
+	this.CurrentHeatingCoolingState 				= Characteristic.CurrentHeatingCoolingState.OFF;
+	this.TargetHeatingCoolingState 					= Characteristic.TargetHeatingCoolingState.OFF;
+	this.CurrentTemperature 					= 20;
+	this.TargetTemperature 						= 20;
+	this.CurrentRelativeHumidity					= 20;
+	//this.TargetRelativeHumidity 					= 20;  //This function is unavaliable for now.
+	this.CoolingThresholdTemperature 				= 25;
+	this.HeatingThresholdTemperature				= 20;
 	//User config.
-	this.http_method										=	config["http_method"]				||				"GET";
-	this.sendimmediately								= config["sendimmediately"]		||				"";
-	this.username 											= config["username"]					||				"";
-	this.password												= config["password"]					||				"";
-	this.TemperatureDisplayUnits 				= config["units"]							||				dispCelsius;
-	this.maxTemp												= config["maxTemp"]						||				38;
-	this.minTemp												= config["minTemp"]						||				10;
+	this.http_method						= config["http_method"]					||	"GET";
+	this.sendimmediately						= config["sendimmediately"]				||	"";
+	this.username 							= config["username"]					||	"";
+	this.password							= config["password"]					||	"";
+	this.TemperatureDisplayUnits 					= config["units"]					||	dispCelsius;
+	this.maxTemp							= config["maxTemp"]					||	38;
+	this.minTemp							= config["minTemp"]					||	10;
 
 	this.service = new Service.Thermostat(this.name);
 
