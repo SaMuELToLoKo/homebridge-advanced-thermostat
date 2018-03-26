@@ -1,6 +1,6 @@
 # homebridge-advanced-thermostat
 
-This is a HomeBridge plujin. Allows HomeKit to use your own Thermostat under HTTP protocol.
+This is a HomeBridge plugin. Allows HomeKit to use your own Thermostat under HTTP protocol.
 
 # Installation
 
