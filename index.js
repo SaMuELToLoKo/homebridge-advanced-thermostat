@@ -186,7 +186,6 @@ Thermostat.prototype = {
 				}
 			}, (function(err, response, body) {
 				if (!err && response.statusCode === 200) {
-					this.log(JSON.parse(body));
 					this.log('response succes');
 					return callback(null);
 				} else {
