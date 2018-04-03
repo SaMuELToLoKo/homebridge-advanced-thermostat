@@ -1,6 +1,6 @@
 // Plujin Thermostate for HomeKit - Homebridge
 // Author Samuel Boix Torner
-// Version 1.0.1.a
+// Version 1.0.3.a
 //
 // This plujin allow to our Homebridge to manage a Thermostate instance in our own application.
 
