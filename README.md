@@ -81,31 +81,31 @@ GET /info
 
 3. Set target State
 ```
-GET /setTargetState/{INT_VALUE}         // 0 OFF 1 HEAT 2 COOL 3 AUTO
+POST /setTargetState/{INT_VALUE}         // 0 OFF 1 HEAT 2 COOL 3 AUTO
 OK (200)
 ```
 
 4. Set target Temperature 
 ```
-GET /targetTemperature/{FLOAT_VALUE}    // Target Temperature 
+POST /targetTemperature/{FLOAT_VALUE}    // Target Temperature 
 OK (200)
 ```
 
 5. Set target Heat Threshold  
 ```
-GET /heatThreshold/{FLOAT_VALUE}    // Target Heat Threshold 
+POST /heatThreshold/{FLOAT_VALUE}    // Target Heat Threshold 
 OK (200)
 ```
 
 6. Set target Cool Threshold  
 ```
-GET /coolThreshold/{FLOAT_VALUE}    // Target Cool Threshold 
+POST /coolThreshold/{FLOAT_VALUE}    // Target Cool Threshold 
 OK (200)
 ```
 
 7. Set Display Units  
 ```
-GET /units/{INT_VALUE}    // Set up Celsius or Fahrenheit, 0 to SET Celsius 1 to SET Fahrenheit 
+POST /units/{INT_VALUE}    // Set up Celsius or Fahrenheit, 0 to SET Celsius 1 to SET Fahrenheit 
 OK (200)
 ```
 
