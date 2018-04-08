@@ -208,7 +208,7 @@ Thermostat.prototype = {
 				if (!err && response.statusCode === 200) {
 	        this.log('response success');
 	        json = JSON.parse(body);
-	        this.log('Currente Temperature is %s (%s)', json.temperature, json.units);
+	        this.log('Current Temperature is %s (%s)', json.temperature, json.units);
 					if (json.units == 0){
 						this.CurrentTemperature = parseFloat(json.temperature);
 					}
