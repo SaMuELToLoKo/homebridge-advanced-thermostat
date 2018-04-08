@@ -20,7 +20,6 @@ function Thermostat(log, config) {
 	var dispFahrenheit = Characteristic.TemperatureDisplayUnits.FAHRENHEIT;
 	//Generic Config.
 	this.log 							= log;
-	this.log(this.name, this.apiAdress);
 	this.apiAdress 							= config["apiAdress"];
 	this.name 							= config["name"]					||	"Thermostat";
 	this.manufacturer						= config["manufacturer"]				||	"User-Thermostat";
@@ -43,7 +42,8 @@ function Thermostat(log, config) {
 	this.TemperatureDisplayUnits 					= config["units"]					||	dispCelsius;
 	this.maxTemp							= config["maxTemp"]					||	38;
 	this.minTemp							= config["minTemp"]					||	10;
-
+	this.log(this.name, this.apiAdress);
+	
 	this.service = new Service.Thermostat(this.name);
 
 }
@@ -253,7 +253,7 @@ Thermostat.prototype = {
 
 	setTargetTemperature: function(value, callback) {
 			if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
-				value = cToF(value);
+				value = this.cToF(value);
 				}
 			this.log('Setting Target Temperature from: ', this.apiAdress + '/targetTemperature/' + value);
 			return request.post({
