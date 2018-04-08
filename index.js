@@ -303,7 +303,7 @@ Thermostat.prototype = {
 
 setHeatingThresholdTemperature: function(value, callback) {
 		if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
-			value = cToF(value);
+			value = this.cToF(value);
 			}
 		this.log('Setting Target Heat Threshold from: ', this.apiAdress + '/heatThreshold/' + value);
 		return request.post({
@@ -353,7 +353,7 @@ getCoolingThresholdTemperature: function(callback) {
 
 setCoolingThresholdTemperature: function(value, callback) {
 	if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
-		value = cToF(value);
+		value = this.cToF(value);
 		}
 	this.log('Setting Target Cool Threshold from: ', this.apiAdress + '/coolThreshold/' + value);
 	return request.post({
