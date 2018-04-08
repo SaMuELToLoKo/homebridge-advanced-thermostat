@@ -57,14 +57,6 @@ Thermostat.prototype = {
     	return Number((5 * (value - 32) / 9).toFixed(2));
   	},
 
-	setUnits: function(callback) {
-	if (this.TemperatureDisplayUnits == dispFahrenheit) {
-	this.maxTemp = cToF(this.maxTemp);
-	this.minTemp = cToF(this.minTemp);
-	  }
-	return callback(null);
-	},
-
 	identify: function(callback) {
 		this.log('Identify requested!');
 		return callback(); // succes
@@ -195,35 +187,35 @@ Thermostat.prototype = {
 			}).bind(this));
 		},
 
-		getCurrentTemperature: function(callback) {
+	getCurrentTemperature: function(callback) {
 			this.log('Getting Current Temperature from: ', this.apiAdress + '/info');
 			return request.get({
 				url: this.apiAdress + '/info',
 				auth: {
-					user: this.username,
-					pass: this.password
-				}
+				user: this.username,
+				pass: this.password
+			}
 			}, (function(err, response, body) {
 				var json;
 				if (!err && response.statusCode === 200) {
-	        this.log('response success');
-	        json = JSON.parse(body);
-	        this.log('Current Temperature is %s (%s)', json.temperature, json.units);
+	       		this.log('response success');
+	        	json = JSON.parse(body);
+	        	this.log('Current Temperature is %s (%s)', json.temperature, json.units);
 					if (json.units == 0){
 						this.CurrentTemperature = parseFloat(json.temperature);
 					}
 					else if (json.units == 1) {
-					this.CurrentTemperature = this.cToF(parseFloat(json.temperature));
-				}
-	        return callback(null, this.CurrentTemperature);
-	      } else {
-	        this.log('Error getting current temp: %s', err);
-	        return callback("Error getting current temp: " + err);
-	      }
-	    }).bind(this));
-	  },
+						this.CurrentTemperature = this.cToF(parseFloat(json.temperature));
+					}
+	        	return callback(null, this.CurrentTemperature);
+	      		} else {
+	        		this.log('Error getting current temp: %s', err);
+	        		return callback("Error getting current temp: " + err);
+	      		}
+	      	   	}).bind(this));
+		},
 
-		getTargetTemperature: function(callback) {
+	getTargetTemperature: function(callback) {
 			this.log('Getting Target Temperature from: ', this.apiAdress + '/info');
 			return request.get({
 				url: this.apiAdress + '/info',
@@ -234,7 +226,7 @@ Thermostat.prototype = {
 			}, (function(err, response, body) {
 				var json;
 				if (!err && response.statusCode === 200) {
-        this.log('response success');
+        			this.log('response success');
 				json = JSON.parse(body);
 				this.log('Target Temperature is %s (%s)', json.tarTemperature, json.units);
 				if (json.units == 0) {
@@ -244,12 +236,12 @@ Thermostat.prototype = {
 					this.TargetTemperature = this.cToF(parseFloat(json.tarTemperature));
 				}
 				return callback(null, this.TargetTemperature);
-			} else {
-				this.log('Error getting target temp: %s', err);
-				return callback("Error getting target temp: " + err);
+				} else {
+					this.log('Error getting target temp: %s', err);
+					return callback("Error getting target temp: " + err);
 				}
 			}).bind(this));
-  },
+  		},
 
 	setTargetTemperature: function(value, callback) {
 			if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
@@ -274,131 +266,131 @@ Thermostat.prototype = {
 	},
 
 	getHeatingThresholdTemperature: function(callback) {
-		this.log('Getting Heating Threshold from: ', this.apiAdress + '/info');
-		return request.get({
-			url: this.apiAdress + '/info',
-			auth: {
-				user: this.username,
-				pass: this.password
+			this.log('Getting Heating Threshold from: ', this.apiAdress + '/info');
+			return request.get({
+				url: this.apiAdress + '/info',
+				auth: {
+					user: this.username,
+					pass: this.password
+				}
+			}, (function(err, response, body) {
+				var json;
+				if (!err && response.statusCode === 200) {
+					this.log('response success');
+					json = JSON.parse(body);
+					this.log('Target Heat threshoold is %s (%s)', json.heatThreshold, json.units);
+					if (json.units == 0) {
+						this.HeatingThresholdTemperature = parseFloat(json.heatThreshold);
+					}
+					else if (json.units == 1) {
+						this.HeatingThresholdTemperature = this.cToF(parseFloat(json.heatThreshold));
+					}
+					return callback(null, this.HeatingThresholdTemperature);
+				} else {
+					this.log('Error getting target Heat threshold: %s', err);
+				return callback("Error getting target heat threshold: " + err);
 			}
-		}, (function(err, response, body) {
-			var json;
-			if (!err && response.statusCode === 200) {
-			this.log('response success');
-			json = JSON.parse(body);
-			this.log('Target Heat threshoold is %s (%s)', json.heatThreshold, json.units);
-			if (json.units == 0) {
-				this.HeatingThresholdTemperature = parseFloat(json.heatThreshold);
-			}
-			else if (json.units == 1) {
-				this.HeatingThresholdTemperature = this.cToF(parseFloat(json.heatThreshold));
-			}
-			return callback(null, this.HeatingThresholdTemperature);
-		} else {
-			this.log('Error getting target Heat threshold: %s', err);
-			return callback("Error getting target heat threshold: " + err);
-			}
-		}).bind(this));
-},
+			}).bind(this));
+		},
 
-setHeatingThresholdTemperature: function(value, callback) {
-		if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
-			value = this.cToF(value);
+	setHeatingThresholdTemperature: function(value, callback) {
+			if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
+				value = this.cToF(value);
 			}
-		this.log('Setting Target Heat Threshold from: ', this.apiAdress + '/heatThreshold/' + value);
-		return request.post({
+			this.log('Setting Target Heat Threshold from: ', this.apiAdress + '/heatThreshold/' + value);
+			return request.post({
 				url: this.apiAdress + '/heatThreshold/' + value,
 				auth: {
 					user: this.username,
 					pass: this.password
-			}
-		}, (function(err, response, body) {
-		if (!err && response.statusCode === 200) {
-		this.log('response success');
-		return callback(null);
-		} else {
-		this.log('Error getting heat threshold: %s', err);
-		return callback("Error setting target heat threshold: " + err);
-		}
-	}).bind(this));
-},
-
-getCoolingThresholdTemperature: function(callback) {
-	this.log('Getting Cool Threshold from: ', this.apiAdress + '/info');
-	return request.get({
-		url: this.apiAdress + '/info',
-		auth: {
-			user: this.username,
-			pass: this.password
-		}
-	}, (function(err, response, body) {
-		var json;
-		if (!err && response.statusCode === 200) {
-		this.log('response success');
-		json = JSON.parse(body);
-		this.log('Target Cool threshold is %s (%s)', json.coolThreshold, json.units);
-		if (json.units == 0) {
-			this.CoolingThresholdTemperature = parseFloat(json.coolThreshold);
-		}
-		else if (json.units == 1) {
-			this.CoolingThresholdTemperaturee = this.cToF(parseFloat(json.coolThreshold));
-		}
-		return callback(null, this.CoolingThresholdTemperature);
-	} else {
-		this.log('Error getting target Cool threshold: %s', err);
-		return callback("Error getting target cool threshold: " + err);
-		}
-	}).bind(this));
-},
-
-setCoolingThresholdTemperature: function(value, callback) {
-	if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
-		value = this.cToF(value);
-		}
-	this.log('Setting Target Cool Threshold from: ', this.apiAdress + '/coolThreshold/' + value);
-	return request.post({
-			url: this.apiAdress + '/coolThreshold/' + value,
-			auth: {
-				user: this.username,
-				pass: this.password
-		}
-	}, (function(err, response, body) {
-	if (!err && response.statusCode === 200) {
-	this.log('response success');
-	return callback(null);
-	} else {
-	this.log('Error getting cool threshold: %s', err);
-	return callback("Error setting target cool threshold: " + err);
-	}
-}).bind(this));
-},
-
-			getTemperatureDisplayUnits: function(callback) {
-					this.log('Getting Temperature Display Units from: ', this.apiAdress + '/info');
-					return request.get({
-						url: this.apiAdress + '/info',
-						auth: {
-							user: this.username,
-							pass: this.password
-						}
-					}, (function(err, response, body) {
-						var json;
-						if (!err && response.statusCode === 200) {
-			this.log('response success');
-			json = JSON.parse(body);
-			this.log('Temperature Display Units %s', json.units);
-			if (json.units == 0) {
-				this.TemperatureDisplayUnits = Characteristic.TemperatureDisplayUnits.CELSIUS;
-			}
-			else if (json.units == 1) {
-				this.TemperatureDisplayUnits = Characteristic.TemperatureDisplayUnits.FAHRENHEIT;
-			}
-			return callback(null, this.TemperatureDisplayUnits);
-		} else {
-			this.log('Error getting Temperature Display Units', err);
-			return callback("Error getting Temperature Display Units: " + err);
+				}
+			}, (function(err, response, body) {
+				if (!err && response.statusCode === 200) {
+				this.log('response success');
+				return callback(null);
+			} else {
+				this.log('Error getting heat threshold: %s', err);
+				return callback("Error setting target heat threshold: " + err);
 			}
 		}).bind(this));
+	},
+
+	getCoolingThresholdTemperature: function(callback) {
+			this.log('Getting Cool Threshold from: ', this.apiAdress + '/info');
+			return request.get({
+				url: this.apiAdress + '/info',
+				auth: {
+					user: this.username,
+					pass: this.password
+			}
+			}, (function(err, response, body) {
+				var json;
+				if (!err && response.statusCode === 200) {
+					this.log('response success');
+					json = JSON.parse(body);
+					this.log('Target Cool threshold is %s (%s)', json.coolThreshold, json.units);
+					if (json.units == 0) {
+						this.CoolingThresholdTemperature = parseFloat(json.coolThreshold);
+					}
+					else if (json.units == 1) {
+						this.CoolingThresholdTemperaturee = this.cToF(parseFloat(json.coolThreshold));
+					}
+					return callback(null, this.CoolingThresholdTemperature);
+				} else {
+					this.log('Error getting target Cool threshold: %s', err);
+					return callback("Error getting target cool threshold: " + err);
+				}
+		}).bind(this));
+	},
+
+	setCoolingThresholdTemperature: function(value, callback) {
+			if (this.TemperatureDisplayUnits == Characteristic.TemperatureDisplayUnits.FAHRENHEIT) {
+				value = this.cToF(value);
+			}
+			this.log('Setting Target Cool Threshold from: ', this.apiAdress + '/coolThreshold/' + value);
+			return request.post({
+				url: this.apiAdress + '/coolThreshold/' + value,
+				auth: {
+					user: this.username,
+					pass: this.password
+				}
+			}, (function(err, response, body) {
+				if (!err && response.statusCode === 200) {
+					this.log('response success');
+					return callback(null);
+			} else {
+				this.log('Error getting cool threshold: %s', err);
+				return callback("Error setting target cool threshold: " + err);
+			}
+		}).bind(this));
+	},
+
+	getTemperatureDisplayUnits: function(callback) {
+			this.log('Getting Temperature Display Units from: ', this.apiAdress + '/info');
+			return request.get({
+				url: this.apiAdress + '/info',
+				auth: {
+					user: this.username,
+					pass: this.password
+				}
+			}, (function(err, response, body) {
+				var json;
+				if (!err && response.statusCode === 200) {
+					this.log('response success');
+					json = JSON.parse(body);
+					this.log('Temperature Display Units %s', json.units);
+					if (json.units == 0) {
+						this.TemperatureDisplayUnits = Characteristic.TemperatureDisplayUnits.CELSIUS;
+					}
+					else if (json.units == 1) {
+						this.TemperatureDisplayUnits = Characteristic.TemperatureDisplayUnits.FAHRENHEIT;
+					}
+					return callback(null, this.TemperatureDisplayUnits);
+				} else {
+					this.log('Error getting Temperature Display Units', err);
+					return callback("Error getting Temperature Display Units: " + err);
+				}
+			}).bind(this));
 	},
 
 			setTemperatureDisplayUnits: function(value, callback) {
