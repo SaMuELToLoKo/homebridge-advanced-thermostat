@@ -109,7 +109,17 @@ POST /units/{INT_VALUE}    // Set up Celsius or Fahrenheit, 0 to SET Celsius 1 
 OK (200)
 ```
 
-Now you can SWAP between Cº to Fº, I still have to fix the arduino Sketch with I'll fix soon.
+Now you can SWAP between Cº to Fº. To visualize the temperture in Fº you must change your Display unit configuration
+in your Iphone.
+
+You can do it going to 
+
+1º Settings
+2º General
+3º Language & Region
+4º Temperature Unit
+
+This function set up the node to display the units in Fº but internally HomeKit only works in Cº.
 
 Here you can download an Arduino scketch for ESP8266 to get working your own Thermostat system
 https://github.com/SaMuELToLoKo/ESP8266-homebridge-advanced-thermostat.git
