@@ -400,6 +400,7 @@ Thermostat.prototype = {
 			}, (function(err, response, body) {
 				if (!err && response.statusCode === 200) {
 		 			this.log('response success');
+					this.TemperatureDisplayUnits = value;
 		 			return callback(null);
 	 			} else {
 		 			this.log('Error getting state: %s', err);
