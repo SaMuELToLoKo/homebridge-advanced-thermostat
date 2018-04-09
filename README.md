@@ -109,7 +109,9 @@ POST /units/{INT_VALUE}    // Set up Celsius or Fahrenheit, 0 to SET Celsius 1 
 OK (200)
 ```
 
-Now you can SWAP between Cº to Fº. To visualize the temperture in Fº you must change your Display unit configuration
+Now you can SWAP between Cº to Fº. 
+
+To visualize the temperture in Fº, you must change your Display unit configuration
 in your Iphone.
 
 You can do it going to 
