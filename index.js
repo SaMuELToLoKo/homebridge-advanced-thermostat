@@ -389,160 +389,160 @@ Thermostat.prototype = {
 			}).bind(this));
 	},
 
-			setTemperatureDisplayUnits: function(value, callback) {
-				this.log('Setting Temperature Display Units from/to ', this.TemperatureDisplayUnits, value);
-				return request.post({
-					url: this.apiAdress + '/units/' + value,
-					auth: {
-						user: this.username,
-						pass: this.password
-					}
-				}, (function(err, response, body) {
+	setTemperatureDisplayUnits: function(value, callback) {
+			this.log('Setting Temperature Display Units from/to ', this.TemperatureDisplayUnits, value);
+			return request.post({
+				url: this.apiAdress + '/units/' + value,
+				auth: {
+					user: this.username,
+					pass: this.password
+				}
+			}, (function(err, response, body) {
 				if (!err && response.statusCode === 200) {
-		 		this.log('response success');
-		 	return callback(null);
-	 		} else {
-		 	this.log('Error getting state: %s', err);
-		 	return callback("Error setting target temp: " + err);
-	 		}
-		}).bind(this));
+		 			this.log('response success');
+		 			return callback(null);
+	 			} else {
+		 			this.log('Error getting state: %s', err);
+		 			return callback("Error setting target temp: " + err);
+	 			}
+			}).bind(this));
 	},
 
-			getCurrentRelativeHumidity: function(callback) {
-	 			this.log('getCurrentRelativeHumidity from:', this.apiAdress + '/info');
-				return request.get({
-					url: this.apiAdress + '/info',
-					auth: {
-						user: this.username,
-						pass: this.password
-					}
+	getCurrentRelativeHumidity: function(callback) {
+	 		this.log('getCurrentRelativeHumidity from:', this.apiAdress + '/info');
+			return request.get({
+				url: this.apiAdress + '/info',
+				auth: {
+					user: this.username,
+					pass: this.password
+				}
 			}, (function(err, response, body) {
 				var json;
-			if (!err && response.statusCode === 200) {
-		        	this.log('response success');
-		        	json = JSON.parse(body);
-		        	this.log('Currente Humidity is %s', json.humidity);
-				this.CurrentRelativeHumidity = parseFloat(json.humidity);
-		        	return callback(null, this.CurrentRelativeHumidity);
-		      	} else {
-		        this.log('Error getting current humidity: %s', err);
-		        return callback("Error getting current hum: " + err);
-		      }
-		   }).bind(this));
-		 },
+				if (!err && response.statusCode === 200) {
+		        		this.log('response success');
+		        		json = JSON.parse(body);
+		        		this.log('Currente Humidity is %s', json.humidity);
+					this.CurrentRelativeHumidity = parseFloat(json.humidity);
+		        		return callback(null, this.CurrentRelativeHumidity);
+		      		} else {
+					this.log('Error getting current humidity: %s', err);
+		        		return callback("Error getting current hum: " + err);
+		      		}
+		   	}).bind(this));
+	 },
 
- 			getTargetRelativeHumidity: function(callback) {
-	 			var error;
-	 			this.log('Get humidity unsupported');
-	 			error = "Get humidity unsupported";
-	 			return callback(error);
- 				},
+ 	getTargetRelativeHumidity: function(callback) {
+	 		var error;
+	 		this.log('Get humidity unsupported');
+	 		error = "Get humidity unsupported";
+	 		return callback(error);
+ 	},
 
- 			setTargetRelativeHumidity: function(value, callback) {
-	 			var error;
-	 			this.log('Set humidity unsupported');
-	 			error = "Set humidity unsupported";
-	 			return callback(error);
- 				},
+ 	setTargetRelativeHumidity: function(value, callback) {
+	 		var error;
+	 		this.log('Set humidity unsupported');
+	 		error = "Set humidity unsupported";
+	 		return callback(error);
+ 	},
 
- 			getName: function(callback) {
-	 			var error;
-	 			this.log('getName :', this.name);
-	 			error = null;
-	 			return callback(error, this.name);
- 			},
+ 	getName: function(callback) {
+	 		var error;
+	 		this.log('getName :', this.name);
+	 		error = null;
+	 		return callback(error, this.name);
+ 	},
 
-			getServices: function() {
+	getServices: function() {
 
-				var informationService = new Service.AccessoryInformation();
+			var informationService = new Service.AccessoryInformation();
 
-				informationService
-				.setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
-				.setCharacteristic(Characteristic.Model, this.model)
-				.setCharacteristic(Characteristic.SerialNumber, this.serial_number);
+			informationService
+			.setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
+			.setCharacteristic(Characteristic.Model, this.model)
+			.setCharacteristic(Characteristic.SerialNumber, this.serial_number);
 
-				this.service
-				.getCharacteristic(Characteristic.CurrentHeatingCoolingState)
-				.on('get', this.getCurrentHeatingCoolingState.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.CurrentHeatingCoolingState)
+			.on('get', this.getCurrentHeatingCoolingState.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.TargetHeatingCoolingState)
-				.on('get', this.getTargetHeatingCoolingState.bind(this))
-				.on('set', this.setTargetHeatingCoolingState.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.TargetHeatingCoolingState)
+			.on('get', this.getTargetHeatingCoolingState.bind(this))
+			.on('set', this.setTargetHeatingCoolingState.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.CurrentTemperature)
-				.on('get', this.getCurrentTemperature.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.CurrentTemperature)
+			.on('get', this.getCurrentTemperature.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.TargetTemperature)
-				.on('get', this.getTargetTemperature.bind(this))
-				.on('set', this.setTargetTemperature.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.TargetTemperature)
+			.on('get', this.getTargetTemperature.bind(this))
+			.on('set', this.setTargetTemperature.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.TemperatureDisplayUnits)
-				.on('get', this.getTemperatureDisplayUnits.bind(this))
-				.on('set', this.setTemperatureDisplayUnits.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.TemperatureDisplayUnits)
+			.on('get', this.getTemperatureDisplayUnits.bind(this))
+			.on('set', this.setTemperatureDisplayUnits.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.CurrentRelativeHumidity)
-				.on('get', this.getCurrentRelativeHumidity.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.CurrentRelativeHumidity)
+			.on('get', this.getCurrentRelativeHumidity.bind(this));
 
-				/*
-				this.service
-				.getCharacteristic(Characteristic.TargetRelativeHumidity)
-				.on('get', this.getTargetRelativeHumidity.bind(this))
-				.on('set', this.setTargetRelativeHumidity.bind(this));
-				*/
+			/*
+			this.service
+			.getCharacteristic(Characteristic.TargetRelativeHumidity)
+			.on('get', this.getTargetRelativeHumidity.bind(this))
+			.on('set', this.setTargetRelativeHumidity.bind(this));
+			*/
 
-				this.service
-				.getCharacteristic(Characteristic.HeatingThresholdTemperature)
-				.on('get', this.getHeatingThresholdTemperature.bind(this))
-				.on('set', this.setHeatingThresholdTemperature.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.HeatingThresholdTemperature)
+			.on('get', this.getHeatingThresholdTemperature.bind(this))
+			.on('set', this.setHeatingThresholdTemperature.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.CoolingThresholdTemperature)
-				.on('get', this.getCoolingThresholdTemperature.bind(this))
-				.on('set', this.setCoolingThresholdTemperature.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.CoolingThresholdTemperature)
+			.on('get', this.getCoolingThresholdTemperature.bind(this))
+			.on('set', this.setCoolingThresholdTemperature.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.Name)
-				.on('get', this.getName.bind(this));
+			this.service
+			.getCharacteristic(Characteristic.Name)
+			.on('get', this.getName.bind(this));
 
-				this.service
-				.getCharacteristic(Characteristic.CurrentTemperature)
-				.setProps({
-						maxValue: 100,
-						minValue: 0,
-						minStep: 1
-				});
+			this.service
+			.getCharacteristic(Characteristic.CurrentTemperature)
+			.setProps({
+				maxValue: 100,
+				minValue: 0,
+				minStep: 1
+			});
 
-				this.service
-				.getCharacteristic(Characteristic.TargetTemperature)
-				.setProps({
-						maxValue: this.maxTemp,
-						minValue: this.minTemp,
-						minStep: 1
-				});
+			this.service
+			.getCharacteristic(Characteristic.TargetTemperature)
+			.setProps({
+				maxValue: this.maxTemp,
+				minValue: this.minTemp,
+				minStep: 1
+			});
 
-				this.service
-				.getCharacteristic(Characteristic.HeatingThresholdTemperature)
-				.setProps({
-						maxValue: 35,
-						minValue: 0,
-						minStep: 1
-				});
+			this.service
+			.getCharacteristic(Characteristic.HeatingThresholdTemperature)
+			.setProps({
+				maxValue: 35,
+				minValue: 0,
+				minStep: 1
+			});
 
-				this.service
-				.getCharacteristic(Characteristic.CoolingThresholdTemperature)
-				.setProps({
-						maxValue: 35,
-						minValue: 0,
-						minStep: 1
-				});
+			this.service
+			.getCharacteristic(Characteristic.CoolingThresholdTemperature)
+			.setProps({
+				maxValue: 35,
+				minValue: 0,
+				minStep: 1
+			});
 
-				return [informationService, this.service];
+			return [informationService, this.service];
 
-		}
+	}
 
 };
