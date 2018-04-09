@@ -109,8 +109,7 @@ POST /units/{INT_VALUE}    // Set up Celsius or Fahrenheit, 0 to SET Celsius 1 
 OK (200)
 ```
 
-I'm still working in it, for now is not working the possibility 
-to swap from Celsius to Fahrenheit, any help is well received.
+Now you can SWAP between Cº to Fº, I still have to fix the arduino Sketch with I'll fix soon.
 
 Here you can download an Arduino scketch for ESP8266 to get working your own Thermostat system
 https://github.com/SaMuELToLoKo/ESP8266-homebridge-advanced-thermostat.git
