@@ -328,7 +328,7 @@ Thermostat.prototype = {
 					else if (json.units == 1) {
 						this.log('Target Cool threshold is %s (%s)', this.fToC(parseFloat(json.coolThreshold)), json.units);
 						this.log('The system is set up in Fahrenheit to %s', json.coolThreshold);
-						this.CoolingThresholdTemperaturee = this.fToC(parseFloat(json.coolThreshold));
+						this.CoolingThresholdTemperature = this.fToC(parseFloat(json.coolThreshold));
 					}
 					return callback(null, this.CoolingThresholdTemperature);
 				} else {
