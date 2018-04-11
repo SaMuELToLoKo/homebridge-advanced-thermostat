@@ -33,7 +33,7 @@ Configuration sample:
                 "name": "Thermostat name",
                 "apiAdress": "http://url",
                 "maxTemp": "25",                      // Optional Max Number 100
-                "minTemp": "15",                      // Optinal Min Numbber 0
+                "minTemp": "15",                      // Optional Min Numbber 0
                 "username": "user",                   // Optional
                 "password": "pass"                    // Optional
                 "manufacturer": "manufacturer",       // Optional
