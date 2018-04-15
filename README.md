@@ -6,7 +6,7 @@ This is a HomeBridge plugin. Allows HomeKit to use your own Thermostat under HTT
 
 You need to be root or use command "sudo" to install this packages.
 
-*Is necessary has installed node.js with npm.
+*Is necessary has installed node.js with npm.*
 
 1. Install homebridge using: npm install -g homebridge
 2. Install this plugin using: npm install -g homebridge-advanced-thermostat
