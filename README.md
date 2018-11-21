@@ -35,7 +35,7 @@ Configuration sample:
                 "maxTemp": "25",                      // Optional Max Number 100
                 "minTemp": "15",                      // Optional Min Numbber 0
                 "username": "user",                   // Optional
-                "password": "pass"                    // Optional
+                "password": "pass",                   // Optional
                 "manufacturer": "manufacturer",       // Optional
                 "model": "model",                     // Optional
                 "serial_number": "serial number",     // Optional
