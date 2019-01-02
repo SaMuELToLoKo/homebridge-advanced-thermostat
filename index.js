@@ -9,7 +9,7 @@ var request = require('request');
 module.exports = function(homebridge) {
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
-	homebridge.registerAccessory("homebridge-advanced-thermostat", "Thermostat", Thermostat);
+	homebridge.registerAccessory("homebridge-infinitive-thermostat", "Thermostat", Thermostat);
 };
 
 
@@ -35,7 +35,6 @@ function Thermostat(log, config) {
 	this.TemperatureDisplayUnits = Characteristic.TemperatureDisplayUnits.FAHRENHEIT;
 	this.CurrentFanState = Characteristic.CurrentFanState.INACTIVE;
 	this.CurrentFanActive = Characteristic.Active.INACTIVE;
-	this.CurrentFilterLifeLevel = Characteristic.FilterLifeLevel.;
 
 	// Infinitive API configuration
 	this.username = config["username"] || "";
