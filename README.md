@@ -1,6 +1,6 @@
 # homebridge-infinitive-thermostat
 
-Homebridge plugin for thermostats supported by Infinitive, including Carrier Infinity and Bryant Evolution.
+Homebridge plugin for thermostats supported by [Infinitive](https://github.com/acd/infinitive), including Carrier Infinity and Bryant Evolution.
 
 # Configuration
 
