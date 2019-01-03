@@ -640,9 +640,9 @@ Thermostat.prototype = {
 		this.ThermostatService
 		.getCharacteristic(Characteristic.CurrentTemperature)
 		.setProps({
-			maxValue: 100,
+			maxValue: 100, // this is the reported temp, not the setpoint, so the range is wider than maxtemp/mintemp
 			minValue: 0,
-			minStep: .1
+			minStep: 0.1
 		});
 
 		this.ThermostatService
@@ -650,7 +650,7 @@ Thermostat.prototype = {
 		.setProps({
 			maxValue: this.maxTemp,
 			minValue: this.minTemp,
-			minStep: 0.5
+			minStep: 0.1
 		});
 
 		this.ThermostatService
@@ -658,7 +658,7 @@ Thermostat.prototype = {
 		.setProps({
 			maxValue: this.maxTemp,
 			minValue: this.minTemp,
-			minStep: 0.5
+			minStep: 0.1
 		});
 
 		this.ThermostatService
@@ -666,7 +666,7 @@ Thermostat.prototype = {
 		.setProps({
 			maxValue: this.maxTemp,
 			minValue: this.minTemp,
-			minStep: 0.5
+			minStep: 0.1
 		});
 
 		return [informationService, this.ThermostatService];
